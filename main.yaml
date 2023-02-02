@@ -1,0 +1,10 @@
+---
+- name: nginx-playbook
+  become: yes
+  hosts: localhost
+  tasks:
+    - name: nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: latest
+        update_cache: yes
