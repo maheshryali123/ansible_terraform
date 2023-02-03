@@ -1,7 +1,7 @@
 resource "aws_instance" "ansible" {
   ami                         = "ami-0aa7d40eeae50c9a9"
   instance_type               = "t2.micro"
-  availability_zone   = 
+  availability_zone           = "us-east-1a" 
   associate_public_ip_address = true
   key_name                    = "newkey"
   vpc_security_group_ids      = [ aws_security_group.security_ansible.id] 
@@ -16,7 +16,7 @@ resource "aws_instance" "ansible" {
   ]
 }
 
-resource "null_resource" "" {
+resource "null_resource" "resource" {
   triggers = {
     running_number = 1
   }
@@ -27,9 +27,15 @@ resource "null_resource" "" {
         private_key = "~/.ssh/id_rsa"
         host = aws_instance.ansible.public_ip
     }
-    inline {
+    inline = [
         "sudo apt update",
-        ""
-    }
+        "git clone https://github.com/maheshryali123/ansible_terraform.git",
+        "cd ansible_terraform",
+        "ansible-playbook -i hosts main.yaml"
+    ]
   }
+
+  depends_on = [
+    aws_instance.ansible
+  ]
 }
