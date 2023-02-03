@@ -47,7 +47,8 @@ resource "aws_route_table" "publicroute" {
 }
 
 resource "aws_route_table_association" "routeasscoiation" {
-    subnet_id = aws_subnet.subnetpublic.id
+    subnet_id      = aws_subnet.subnetpublic.id
+    route_table_id = aws_route_table.publicroute.id
 }
 
 
