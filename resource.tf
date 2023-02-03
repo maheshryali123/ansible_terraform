@@ -1,15 +1,17 @@
 resource "aws_vpc" "vpc" {
   cidr_block = "192.168.0.0/16"
-  tags {
-    Name = "new_vpc"
+
+  tags = {
+    Name = "newvpc"
   }
 }
 
 resource "aws_subnet" "subnetpublic" {
     vpc_id     = aws_vpc.vpc.id
     cidr_block = "192.168.0.0/24"
-    tags {
-        Name = "subnet_public"
+
+    tags = {
+        Name = "subnetpublic"
     }
 
     depends_on = [
@@ -19,8 +21,9 @@ resource "aws_subnet" "subnetpublic" {
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc
-  tags {
-    Name = "igw_ansible"
+
+  tags = {
+    Name = "igwansible"
   }
 
   depends_on = [
@@ -34,8 +37,8 @@ resource "aws_route_table" "publicroute" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.igw.id
   }
-  tags {
-    Name = "public_route"
+  tags = {
+    Name = "publicroute"
   }
 
   depends_on = [

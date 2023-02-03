@@ -7,7 +7,7 @@ resource "aws_instance" "ansible" {
   vpc_security_group_ids      = [ aws_security_group.security_ansible.id] 
   subnet_id                   = aws_subnet.subnetpublic.id
   tags = {
-    Name = "instance_ansible"
+    Name = "instanceansible"
   } 
 
   depends_on = [
